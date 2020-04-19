@@ -92,3 +92,9 @@ hr.light {
   margin-top: 0.8rem;
   margin-bottom: 1rem;
 }
+.case-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

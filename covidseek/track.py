@@ -46,9 +46,10 @@ def locate():
     else:
         locations = Location.query.order_by(Location.id.desc()).first() #look at all the database contents in order of creation and returns all of them
         fit = NewModel(locations.state)
-        prev_data = fit.makedata()
-        model = fit.train(prev_data)
-        return render_template('datamap.html', location=locations, deaths=counties, use=True)
+        prev_data, cap = fit.makedata()
+        model = fit.train(prev_data, cap)
+        filename = "" + locations.state + ".png"
+        return render_template('datamap.html', location=locations, deaths=counties, use=True, filename=filename)
 
 @app.route('/about')
 def about():
