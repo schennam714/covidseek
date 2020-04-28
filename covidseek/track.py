@@ -36,6 +36,12 @@ def locate():
     if request.method == 'POST':
         county_name = request.form['search']
         area = [part.strip() for part in county_name.split(',')]
+        test = False
+        for place in counties:
+            if place["county"]==area[0] and place["state"]==area[1]:
+                test = True
+        if test is False:
+            return redirect('/error')
         new_location = Location(county=area[0], state=area[1], country=area[2])
         try:
             db.session.add(new_location)
@@ -54,5 +60,9 @@ def locate():
 @app.route('/about')
 def about():
     return render_template('team.html')
+
+@app.route('/error')
+def error():
+    return "There was an error processing your request. Either you have entered your input wrong or your location does not exist in our database. Please try again."
 
 

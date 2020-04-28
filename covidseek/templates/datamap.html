@@ -28,19 +28,20 @@
     </div>
     <div class="row mb-2">
       <div class="col">
-        <form action="/locate" method="POST">
+        <form action="/locate" method="POST" autocomplete="off">
           <input
             id="search"
             type="text"
             placeholder="Search Up Your Location in the format of County, State, Country.."
             name="search"
             style="width: 80%;"
+            autocomplete="off"
           />
           <button type="submit">Search</button>
         </form>
         <p>
-          Example: If my county was Jefferson County in New Orleans, I would
-          type -- "Jefferson, New Orleans, USA"
+          Example: If my county was Fairfax County in Virginia, I would type --
+          "Fairfax, Virginia, USA"
         </p>
       </div>
     </div>
