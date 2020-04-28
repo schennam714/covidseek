@@ -27,12 +27,12 @@ class NewModel:
     def train(self, original, capping):
         df_prophet= original.rename(columns={'date': 'ds', 'cases': 'y', 'cap':'cap'})
 
-        m_global = fbprophet.Prophet(growth='logistic')
-        m_global.fit(df_prophet)
-        future_global = m_global.make_future_dataframe(periods=30)
-        future_global['cap'] = capping
-        forecast_global = m_global.predict(future_global)
-        fig=m_global.plot(forecast_global)
+        overall = fbprophet.Prophet(growth='logistic')
+        overall.fit(df_prophet)
+        future = overall.make_future_dataframe(periods=30)
+        future['cap'] = capping
+        new_future = overall.predict(future)
+        fig=overall.plot(new_future)
         save = "/Users/shreyas/Desktop/Web Dev/covidseek/covidseek/static/" + self.state + ".png"
         fig.savefig(save)
         return fig
