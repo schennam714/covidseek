@@ -1,3 +1,5 @@
-images
-covidseek/covidseek/templates/tag.html
-covidseek/covidseek/apikey.py
+covidseek/__pycache__
+covidseek/.ipynb_checkpoints
+covidseek/templates/tag.html
+covidseek/apikey.py
+
