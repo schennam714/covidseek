@@ -7,7 +7,9 @@ import sys
 sys.path.append("/Users/shreyas/Desktop/Web Dev/covidseek")
 from covidseek.model import NewModel
 from covidseek.createdata import counties
+from covidseek.apikey import api_key
 import matplotlib
+import googlemaps
 
 matplotlib.use('Agg')
 
@@ -64,5 +66,21 @@ def about():
 @app.route('/error')
 def error():
     return "There was an error processing your request. Either you have entered your input wrong or your location does not exist in our database. Please try again."
+
+@app.route('/resources')
+def resources():
+    locations = Location.query.order_by(Location.id.desc()).first()
+    gmaps_key = googlemaps.Client(key = api_key)
+    geocode_area = locations.county + ", " + locations.state
+    geocode = gmaps_key.geocode(geocode_area)
+    lat = 0
+    lon = 0
+    try:
+        lat = geocode[0]["geometry"]["location"]["lat"]
+        lon = geocode[0]["geometry"]["location"]["lng"]
+    except:
+        lat = None
+        lon = None
+    return render_template('resources.html', city=locations.county, state=locations.state, lat=lat, lon=lon)
 
 

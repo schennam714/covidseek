@@ -98,3 +98,6 @@ hr.light {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+#map {
+  height: 100%;
+}

@@ -1,4 +1,3 @@
 images
 covidseek/covidseek/templates/tag.html
-covidseek/covidseek/apikey.txt
-covidseek/covidseek/final_data.csv
+covidseek/covidseek/apikey.py

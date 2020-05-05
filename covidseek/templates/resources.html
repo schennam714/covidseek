@@ -1,0 +1,68 @@
+{% extends "index.html" %}{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4">My Map</h1>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col">
+      <input
+        class="form-control"
+        id="search"
+        type="text"
+        placeholder="{{city}}, {{state}}"
+      />
+    </div>
+  </div>
+  <div class="row" style="height: 900px; width: 1200px;">
+    <div class="col">
+      <div id="map"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var map;
+  var infowindow;
+
+  function createMap() {
+    var center = new google.maps.LatLng({{lat}}, {{lon}});
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: center,
+      zoom: 13,
+    });
+
+    var request = {
+      location: center,
+      radius: 8047,
+      types: ['hospital'],
+      keyword: 'testing'
+    };
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback)
+  }
+
+  function callback(results, status) {
+    if(status == google.maps.places.PlacesServiceStatus.OK){
+      for(var i = 0; i < results.length; i++){
+        createMarker(results[i])
+      }
+    }
+  }
+
+  function createMarker(place){
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    })
+  }
+  google.maps.event.addDomListener(window, "load", createMap)
+</script>
+{% include 'tag.html' %} {% endblock content %}
