@@ -35,8 +35,8 @@
     var request = {
       location: center,
       radius: 8047,
-      types: ['hospital'],
-      keyword: 'testing'
+      types: ['store'],
+      keyword: 'medical mask'
     };
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
@@ -59,7 +59,10 @@
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
+      infowindow.setContent('<h4>' + place.name + '</h4>' +
+      '<br />' +
+      '<p>' + 'In stock' + '</p>'
+      );
       infowindow.open(map, this);
     })
   }
